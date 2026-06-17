@@ -93,7 +93,13 @@
         if (codigoArticulo.trim() === "") {
             document.getElementById("mensajeArticulo").innerText = "Introduce el código de artículo.";
         } else {
-            document.getElementById("mensajeArticulo").innerText = "Buscando ficha técnica del artículo " + codigoArticulo + "...";
+            const codigoNormalizado = codigoArticulo.trim().padStart(5, "0");
+
+if (codigoNormalizado.length > 5) {
+    document.getElementById("mensajeArticulo").innerText = "El código de artículo debe tener máximo 5 dígitos.";
+} else {
+    document.getElementById("mensajeArticulo").innerText = "Buscando ficha técnica del artículo " + codigoNormalizado + "...";
+}
         }
     }
 </script>
