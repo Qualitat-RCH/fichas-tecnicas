@@ -52,13 +52,27 @@
 
         <p>Introduce tu código de cliente</p>
 
-        <input type="text" id="codigoCliente" placeholder="Código cliente">
+<input type="text" id="codigoCliente" placeholder="Código cliente">
 
-        <br>
+<br>
 
-        <button onclick="validarAcceso()">Validar acceso</button>
+<button onclick="validarAcceso()">Validar acceso</button>
 
 <p id="mensaje"></p>
+
+<div id="zonaArticulo" style="display: none;">
+    <hr>
+
+    <p>Introduce el código de artículo</p>
+
+    <input type="text" id="codigoArticulo" placeholder="Código artículo">
+
+    <br>
+
+    <button onclick="buscarFicha()">Buscar ficha técnica</button>
+
+    <p id="mensajeArticulo"></p>
+</div>
 
     </div>
 <script>
@@ -68,7 +82,18 @@
         if (codigoCliente.trim() === "") {
             document.getElementById("mensaje").innerText = "Introduce tu código de cliente.";
         } else {
-            document.getElementById("mensaje").innerText = "Código recibido correctamente.";
+            document.getElementById("mensaje").innerText = "Acceso validado correctamente.";
+            document.getElementById("zonaArticulo").style.display = "block";
+        }
+    }
+
+    function buscarFicha() {
+        const codigoArticulo = document.getElementById("codigoArticulo").value;
+
+        if (codigoArticulo.trim() === "") {
+            document.getElementById("mensajeArticulo").innerText = "Introduce el código de artículo.";
+        } else {
+            document.getElementById("mensajeArticulo").innerText = "Buscando ficha técnica del artículo " + codigoArticulo + "...";
         }
     }
 </script>
