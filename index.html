@@ -56,9 +56,21 @@
 
         <br>
 
-        <button>Validar acceso</button>
+        <button onclick="validarAcceso()">Validar acceso</button>
+
+<p id="mensaje"></p>
 
     </div>
+<script>
+    function validarAcceso() {
+        const codigoCliente = document.getElementById("codigoCliente").value;
 
+        if (codigoCliente.trim() === "") {
+            document.getElementById("mensaje").innerText = "Introduce tu código de cliente.";
+        } else {
+            document.getElementById("mensaje").innerText = "Código recibido correctamente.";
+        }
+    }
+</script>
 </body>
 </html>
