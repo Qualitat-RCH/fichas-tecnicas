@@ -122,21 +122,60 @@ async function validarAcceso() {
     }
 }
 
-    function buscarFicha() {
-        const codigoArticulo = document.getElementById("codigoArticulo").value;
+async function buscarFicha() {
 
-        if (codigoArticulo.trim() === "") {
-            document.getElementById("mensajeArticulo").innerText = "Introduce el código de artículo.";
-        } else {
-            const codigoNormalizado = codigoArticulo.trim().padStart(5, "0");
+    const codigoArticulo = document.getElementById("codigoArticulo").value;
 
-if (codigoNormalizado.length > 5) {
-    document.getElementById("mensajeArticulo").innerText = "El código de artículo debe tener máximo 5 dígitos.";
-} else {
-    document.getElementById("mensajeArticulo").innerText = "Buscando ficha técnica del artículo " + codigoNormalizado + "...";
-}
-        }
+    if (codigoArticulo.trim() === "") {
+        document.getElementById("mensajeArticulo").innerText =
+            "Introduce el código de artículo.";
+        return;
     }
+
+    const codigoNormalizado = codigoArticulo.trim().padStart(5, "0");
+
+    if (codigoNormalizado.length > 5) {
+        document.getElementById("mensajeArticulo").innerText =
+            "El código de artículo debe tener máximo 5 dígitos.";
+        return;
+    }
+
+    document.getElementById("mensajeArticulo").innerText =
+        "Buscando ficha técnica del artículo " + codigoNormalizado + "...";
+
+    try {
+
+        const respuesta = await fetch(
+            "https://restless-sea-90cc.adolfo-iglesias.workers.dev/?codigoMaterial=" +
+            encodeURIComponent(codigoNormalizado)
+        );
+
+        const datos = await respuesta.json();
+
+        if (datos.ok) {
+
+            document.getElementById("mensajeArticulo").innerHTML =
+                "✓ Ficha técnica encontrada<br><br>" +
+                "Material: " + datos.codigoMaterial + "<br>" +
+                "Proveedor: " + datos.codigoProveedor + "<br>" +
+                "Idioma: " + datos.idioma + "<br>" +
+                "Fecha: " + new Date(datos.fechaFicha).toLocaleDateString("es-ES") + "<br><br>" +
+                "<a href='" + datos.urlPDF + "' target='_blank'>" +
+                "<button>Ver ficha técnica PDF</button>" +
+                "</a>";
+
+        } else {
+
+            document.getElementById("mensajeArticulo").innerText =
+                datos.mensaje;
+        }
+
+    } catch (error) {
+
+        document.getElementById("mensajeArticulo").innerText =
+            "Error de conexión al buscar la ficha técnica.";
+    }
+}
 </script>
 </body>
 </html>
