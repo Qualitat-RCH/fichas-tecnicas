@@ -92,8 +92,8 @@ async function validarAcceso() {
     try {
 
         const respuesta = await fetch(
-            "https://restless-sea-90cc.adolfo-iglesias.workers.dev/?codigoCliente=" +
-            encodeURIComponent(codigoCliente)
+"https://restless-sea-90cc.adolfo-iglesias.workers.dev/?accion=validarCliente&codigoCliente=" +
+encodeURIComponent(codigoCliente)
         );
 
         const datos = await respuesta.json();
@@ -146,8 +146,8 @@ async function buscarFicha() {
     try {
 
         const respuesta = await fetch(
-            "https://restless-sea-90cc.adolfo-iglesias.workers.dev/?codigoMaterial=" +
-            encodeURIComponent(codigoNormalizado)
+"https://restless-sea-90cc.adolfo-iglesias.workers.dev/?accion=buscarFicha&codigoMaterial=" +
+encodeURIComponent(codigoNormalizado)
         );
 
         const datos = await respuesta.json();
