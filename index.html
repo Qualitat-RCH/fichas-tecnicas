@@ -76,16 +76,51 @@
 
     </div>
 <script>
-    function validarAcceso() {
-        const codigoCliente = document.getElementById("codigoCliente").value;
+async function validarAcceso() {
 
-        if (codigoCliente.trim() === "") {
-            document.getElementById("mensaje").innerText = "Introduce tu código de cliente.";
-        } else {
-            document.getElementById("mensaje").innerText = "Acceso validado correctamente.";
-            document.getElementById("zonaArticulo").style.display = "block";
-        }
+    const codigoCliente = document.getElementById("codigoCliente").value;
+
+    if (codigoCliente.trim() === "") {
+        document.getElementById("mensaje").innerText =
+            "Introduce tu código de cliente.";
+        return;
     }
+
+    document.getElementById("mensaje").innerText =
+        "Validando cliente...";
+
+    try {
+
+        const respuesta = await fetch(
+            "https://restless-sea-90cc.adolfo-iglesias.workers.dev/?codigoCliente=" +
+            encodeURIComponent(codigoCliente)
+        );
+
+        const datos = await respuesta.json();
+
+        if (datos.ok) {
+
+            document.getElementById("mensaje").innerText =
+                "Bienvenido " + datos.nombreCliente;
+
+            document.getElementById("zonaArticulo").style.display = "block";
+
+        } else {
+
+            document.getElementById("mensaje").innerText =
+                datos.mensaje;
+
+            document.getElementById("zonaArticulo").style.display = "none";
+        }
+
+    } catch (error) {
+
+        document.getElementById("mensaje").innerText =
+            "Error de conexión";
+
+        document.getElementById("zonaArticulo").style.display = "none";
+    }
+}
 
     function buscarFicha() {
         const codigoArticulo = document.getElementById("codigoArticulo").value;
