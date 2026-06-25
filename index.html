@@ -1,183 +1,364 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Fichas Técnicas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Fichas Técnicas | Ramon Cusiné</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+<style>
+:root {
+    --azul: #1681c4;
+    --azul-oscuro: #0f6fa9;
+    --verde: #76bd22;
+    --fondo: #f5f8fb;
+    --texto: #1f2937;
+    --gris: #6b7280;
+    --borde: #dce7f0;
+    --blanco: #ffffff;
+}
 
-        .contenedor {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 350px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            margin-bottom: 20px;
-        }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, var(--fondo), #ffffff);
+    color: var(--texto);
+    min-height: 100vh;
+}
 
-        input {
-            width: 90%;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
+.topbar {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--borde);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.05);
+}
 
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-    </style>
+.logo {
+    height: 46px;
+}
 
+.topbar-texto {
+    font-weight: 700;
+    color: var(--azul);
+    font-size: 18px;
+}
+
+.portal {
+    max-width: 780px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.contenedor {
+    background: var(--blanco);
+    padding: 36px;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(22,129,196,.13);
+    border: 1px solid var(--borde);
+}
+
+h1 {
+    margin: 0 0 10px;
+    color: var(--azul);
+    font-size: 30px;
+}
+
+.subtitulo {
+    color: var(--gris);
+    margin-bottom: 30px;
+}
+
+.bloque {
+    margin-top: 26px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 15px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--borde);
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 4px rgba(22,129,196,.12);
+}
+
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px 18px;
+    border: none;
+    border-radius: 14px;
+    background: var(--azul);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+button:hover {
+    background: var(--azul-oscuro);
+    transform: translateY(-1px);
+}
+
+button.secundario {
+    background: var(--verde);
+}
+
+.mensaje {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    display: none;
+    line-height: 1.5;
+}
+
+.mensaje.info {
+    display: block;
+    background: #eef7ff;
+    border-left: 5px solid var(--azul);
+}
+
+.mensaje.ok {
+    display: block;
+    background: #f2faed;
+    border-left: 5px solid var(--verde);
+}
+
+.mensaje.error {
+    display: block;
+    background: #fff1f1;
+    border-left: 5px solid #d64545;
+}
+
+#zonaArticulo {
+    display: none;
+    margin-top: 30px;
+    padding-top: 28px;
+    border-top: 1px solid var(--borde);
+}
+
+.ficha-card {
+    background: #f8fbfd;
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 18px;
+    text-align: left;
+}
+
+.ficha-card h3 {
+    margin-top: 0;
+    color: var(--azul);
+}
+
+.dato {
+    margin: 8px 0;
+}
+
+.dato strong {
+    color: var(--texto);
+}
+
+.footer {
+    text-align: center;
+    color: var(--gris);
+    font-size: 13px;
+    margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 16px 20px;
+    }
+
+    .topbar-texto {
+        font-size: 15px;
+    }
+
+    .portal {
+        margin: 28px auto;
+    }
+
+    .contenedor {
+        padding: 26px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<header class="topbar">
+    <img src="LOGO_petit_2026-png.png" alt="Ramon Cusiné" class="logo">
+    <div class="topbar-texto">Portal de Fichas Técnicas</div>
+</header>
+
+<main class="portal">
     <div class="contenedor">
 
-        <h1>Portal de Fichas Técnicas</h1>
-<p>Acceso para clientes</p>
+        <h1>Acceso a fichas técnicas</h1>
+        <p class="subtitulo">Portal exclusivo para clientes de Ramon Cusiné.</p>
 
-        <p>Introduce tu código de cliente</p>
+        <div class="bloque">
+            <label for="codigoCliente">Código de cliente</label>
+            <input type="text" id="codigoCliente" placeholder="Ej. 03982">
+            <button onclick="validarAcceso()">Validar acceso</button>
+            <p id="mensaje" class="mensaje"></p>
+        </div>
 
-<input type="text" id="codigoCliente" placeholder="Código cliente">
-
-<br>
-
-<button onclick="validarAcceso()">Validar acceso</button>
-
-<p id="mensaje"></p>
-
-<div id="zonaArticulo" style="display: none;">
-    <hr>
-
-    <p>Introduce el código de artículo</p>
-
-    <input type="text" id="codigoArticulo" placeholder="Código artículo">
-
-    <br>
-
-    <button onclick="buscarFicha()">Buscar ficha técnica</button>
-
-    <p id="mensajeArticulo"></p>
-</div>
+        <div id="zonaArticulo">
+            <label for="codigoArticulo">Código de artículo</label>
+            <input type="text" id="codigoArticulo" placeholder="Ej. 00001">
+            <button onclick="buscarFicha()">Buscar ficha técnica</button>
+            <div id="mensajeArticulo" class="mensaje"></div>
+        </div>
 
     </div>
+
+    <div class="footer">
+        Ramon Cusiné Hill · Portal de documentación técnica
+    </div>
+</main>
+
 <script>
+const WORKER_URL = "https://restless-sea-90cc.adolfo-iglesias.workers.dev/";
+
+function mostrarMensaje(id, texto, tipo) {
+    const elemento = document.getElementById(id);
+    elemento.className = "mensaje " + tipo;
+    elemento.innerHTML = texto;
+}
+
 async function validarAcceso() {
 
-    const codigoCliente = document.getElementById("codigoCliente").value;
+    const codigoCliente = document.getElementById("codigoCliente").value.trim();
 
-    if (codigoCliente.trim() === "") {
-        document.getElementById("mensaje").innerText =
-            "Introduce tu código de cliente.";
+    if (codigoCliente === "") {
+        mostrarMensaje("mensaje", "⚠️ Introduce tu código de cliente.", "error");
         return;
     }
 
-    document.getElementById("mensaje").innerText =
-        "Validando cliente...";
+    mostrarMensaje("mensaje", "⏳ Validando cliente...", "info");
 
     try {
-
         const respuesta = await fetch(
-"https://restless-sea-90cc.adolfo-iglesias.workers.dev/?accion=validarCliente&codigoCliente=" +
-encodeURIComponent(codigoCliente)
+            WORKER_URL +
+            "?accion=validarCliente&codigoCliente=" +
+            encodeURIComponent(codigoCliente)
         );
 
         const datos = await respuesta.json();
 
         if (datos.ok) {
-
-            document.getElementById("mensaje").innerText =
-                "Bienvenido " + datos.nombreCliente;
+            mostrarMensaje(
+                "mensaje",
+                "✅ Bienvenido, <strong>" + datos.nombreCliente + "</strong>.",
+                "ok"
+            );
 
             document.getElementById("zonaArticulo").style.display = "block";
 
         } else {
-
-            document.getElementById("mensaje").innerText =
-                datos.mensaje;
-
+            mostrarMensaje("mensaje", "❌ " + datos.mensaje, "error");
             document.getElementById("zonaArticulo").style.display = "none";
         }
 
     } catch (error) {
-
-        document.getElementById("mensaje").innerText =
-            "Error de conexión";
-
+        mostrarMensaje("mensaje", "❌ Error de conexión.", "error");
         document.getElementById("zonaArticulo").style.display = "none";
     }
 }
 
 async function buscarFicha() {
 
-    const codigoArticulo = document.getElementById("codigoArticulo").value;
+    const codigoArticulo = document.getElementById("codigoArticulo").value.trim();
 
-    if (codigoArticulo.trim() === "") {
-        document.getElementById("mensajeArticulo").innerText =
-            "Introduce el código de artículo.";
+    if (codigoArticulo === "") {
+        mostrarMensaje("mensajeArticulo", "⚠️ Introduce el código de artículo.", "error");
         return;
     }
 
-    const codigoNormalizado = codigoArticulo.trim().padStart(5, "0");
+    const codigoNormalizado = codigoArticulo.padStart(5, "0");
 
     if (codigoNormalizado.length > 5) {
-        document.getElementById("mensajeArticulo").innerText =
-            "El código de artículo debe tener máximo 5 dígitos.";
+        mostrarMensaje(
+            "mensajeArticulo",
+            "⚠️ El código de artículo debe tener máximo 5 dígitos.",
+            "error"
+        );
         return;
     }
 
-    document.getElementById("mensajeArticulo").innerText =
-        "Buscando ficha técnica del artículo " + codigoNormalizado + "...";
+    mostrarMensaje(
+        "mensajeArticulo",
+        "⏳ Buscando ficha técnica del artículo <strong>" + codigoNormalizado + "</strong>...",
+        "info"
+    );
 
     try {
-
-const respuesta = await fetch(
-"https://restless-sea-90cc.adolfo-iglesias.workers.dev/?accion=buscarFicha&codigoMaterial=" +
-encodeURIComponent(codigoNormalizado) +
-"&codigoCliente=" +
-encodeURIComponent(document.getElementById("codigoCliente").value)
-);
+        const respuesta = await fetch(
+            WORKER_URL +
+            "?accion=buscarFicha&codigoMaterial=" +
+            encodeURIComponent(codigoNormalizado) +
+            "&codigoCliente=" +
+            encodeURIComponent(document.getElementById("codigoCliente").value.trim())
+        );
 
         const datos = await respuesta.json();
 
         if (datos.ok) {
-
-            document.getElementById("mensajeArticulo").innerHTML =
-                "✓ Ficha técnica encontrada<br><br>" +
-                "Material: " + datos.codigoMaterial + "<br>" +
-                "Proveedor: " + datos.codigoProveedor + "<br>" +
-                "Idioma: " + datos.idioma + "<br>" +
-                "Fecha: " + new Date(datos.fechaFicha).toLocaleDateString("es-ES") + "<br><br>" +
-                "<a href='" + datos.urlPDF + "' target='_blank'>" +
-                "<button>Ver ficha técnica PDF</button>" +
-                "</a>";
+            mostrarMensaje(
+                "mensajeArticulo",
+                `
+                <div class="ficha-card">
+                    <h3>✅ Ficha técnica encontrada</h3>
+                    <p class="dato"><strong>Material:</strong> ${datos.codigoMaterial}</p>
+                    <p class="dato"><strong>Proveedor:</strong> ${datos.codigoProveedor}</p>
+                    <p class="dato"><strong>Idioma:</strong> ${datos.idioma}</p>
+                    <p class="dato"><strong>Fecha:</strong> ${new Date(datos.fechaFicha).toLocaleDateString("es-ES")}</p>
+                    <a href="${datos.urlPDF}" target="_blank">
+                        <button class="secundario">Ver ficha técnica PDF</button>
+                    </a>
+                </div>
+                `,
+                "ok"
+            );
 
         } else {
-
-            document.getElementById("mensajeArticulo").innerText =
-                datos.mensaje;
+            mostrarMensaje("mensajeArticulo", "❌ " + datos.mensaje, "error");
         }
 
     } catch (error) {
-
-        document.getElementById("mensajeArticulo").innerText =
-            "Error de conexión al buscar la ficha técnica.";
+        mostrarMensaje(
+            "mensajeArticulo",
+            "❌ Error de conexión al buscar la ficha técnica.",
+            "error"
+        );
     }
 }
 </script>
+
 </body>
 </html>
