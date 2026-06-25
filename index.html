@@ -145,10 +145,12 @@ async function buscarFicha() {
 
     try {
 
-        const respuesta = await fetch(
+const respuesta = await fetch(
 "https://restless-sea-90cc.adolfo-iglesias.workers.dev/?accion=buscarFicha&codigoMaterial=" +
-encodeURIComponent(codigoNormalizado)
-        );
+encodeURIComponent(codigoNormalizado) +
+"&codigoCliente=" +
+encodeURIComponent(document.getElementById("codigoCliente").value)
+);
 
         const datos = await respuesta.json();
 
