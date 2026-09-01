@@ -358,6 +358,16 @@ type="text"
 id="codigoCliente"
 placeholder="Introduzca su código de cliente">
 
+<label>PIN de acceso</label>
+
+<input
+type="password"
+id="pinCliente"
+placeholder="Introduzca su PIN de 6 dígitos"
+maxlength="6"
+inputmode="numeric"
+pattern="[0-9]*">
+
 <button onclick="validarAcceso()">
 
 Validar acceso
@@ -436,7 +446,15 @@ async function validarAcceso(){
 
 const codigo=document.getElementById("codigoCliente").value.trim();
 
-if(codigo===""){
+const pin=document.getElementById("pinCliente").value.trim();
+    
+if(codigo==="" || pin===""){
+
+mostrar("mensaje","⚠️ Introduzca su código de cliente y su PIN.","error");
+
+return;
+
+}
 
 mostrar("mensaje","⚠️ Introduzca su código de cliente.","error");
 
@@ -453,8 +471,9 @@ const r=await fetch(
 worker+
 
 "?accion=validarCliente&codigoCliente="+
-
-encodeURIComponent(codigo)
+encodeURIComponent(codigo)+
+"&pin="+
+encodeURIComponent(pin)
 
 );
 
